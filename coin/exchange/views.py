@@ -70,7 +70,7 @@ class CoinOne(APIView):
         high = coin_data["high"]
         low = coin_data["low"]
         volumn = coin_data["volume"]
-        print(type(price))
+        print(type(int(price)))
         return Response(status=status.HTTP_200_OK,data={
             "version": "2.0",
                 "template": {
