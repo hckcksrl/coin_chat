@@ -49,7 +49,7 @@ class CoinOne(APIView):
             return False
         return data.json()
 
-    def get(self, request:Request):
+    def post(self, request:Request):
 
         data = request.data
         name = data['action']['params']['coin']
@@ -102,7 +102,7 @@ class UpBit(APIView):
 
         return False
 
-    def get(self, request:Request):
+    def post(self, request:Request):
 
         data = request.data
         name = data['action']['params']['coin']
@@ -142,7 +142,7 @@ class Bithumb(APIView):
             return False
         return data.json()
 
-    def get(self, request:Request):
+    def post(self, request:Request):
 
         data = request.data
         name = data['action']['params']['coin']
