@@ -45,7 +45,7 @@ class CoinOne(APIView):
     def get_coin(self, name):
         api = f'https://api.coinone.co.kr/ticker?currency={name}'
         data = requests.get(api)
-        if len(data.json()) != 1:
+        if len(data.json()) == 404:
             return False
         return data.json()
 
