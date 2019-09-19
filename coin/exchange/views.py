@@ -151,7 +151,7 @@ class Bithumb(APIView):
             name = korean_to_english(name=name)
 
         if name is False:
-            return Response(status=status.HTTP_404_NOT_FOUND, data={
+            return Response(data={
                 "version": "2.0",
                 "template": {
                     "outputs": [
@@ -167,7 +167,7 @@ class Bithumb(APIView):
         coin_data = self.get_coin(name=name)
 
         if coin_data is False:
-            return Response(status=status.HTTP_404_NOT_FOUND, data={
+            return Response(data={
                 "version": "2.0",
                 "template": {
                     "outputs": [
