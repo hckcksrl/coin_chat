@@ -65,7 +65,7 @@ class CoinOne(APIView):
         if coin_data is False:
             return NotFound
 
-        price = int(coin_data["last"])
+        price = type(coin_data["last"])
         currency = coin_data["currency"]
         high = coin_data["high"]
         low = coin_data["low"]
