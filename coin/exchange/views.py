@@ -78,8 +78,8 @@ class CoinOne(APIView):
                     "outputs": [
                         {
                             "simpleText": {
-                                "text": f'{currency.upper()}\n\n가격 : {"{:,}".format(price)} 원\n24시간 최고가격 : {"{:,}".format(high)} 원'
-                                f'\n24시간 최저가격 : {"{:,}".format(low)} 원\n24시간 거래량 : {volumn} {currency.upper()}'
+                                "text": f'{currency.upper()}\n\n가격 : {"{:,}".format(price)}원\n24시간 최고가격 : {"{:,}".format(high)}원'
+                                f'\n24시간 최저가격 : {"{:,}".format(low)}원\n24시간 거래량 : {volumn}{currency.upper()}'
                             }
                         }
                     ]
@@ -144,8 +144,8 @@ class UpBit(APIView):
                 "outputs": [
                     {
                         "simpleText": {
-                                "text": f'{currency}\n\n가격 : {"{:,}".format(price)} 원\n24시간 최고가격 : {"{:,}".format(high)} 원'
-                                f'\n24시간 최저가격 : {"{:,}".format(low)} 원\n24시간 거래량({currency}) : {volumn} {currency}\n24시간 거래량(원) : {allprice} 원'
+                                "text": f'{currency}\n\n가격 : {"{:,}".format(price)}원\n24시간 최고가격 : {"{:,}".format(high)}원'
+                                f'\n24시간 최저가격 : {"{:,}".format(low)}원\n24시간 거래량({currency}) : {volumn}{currency}\n24시간 거래량(원) : {allprice}원'
                         }
                     }
                 ]
@@ -178,13 +178,23 @@ class Bithumb(APIView):
         if coin_data is False:
             return NotFound
 
+        price = float(coin_data['data']["closing_price"])
+        currency = name
+        high = float(coin_data['data']["max_price"])
+        low = float(coin_data['data']["min_price"])
+        volumn = float(coin_data['data']["units_traded_24H"])
+        allprice = float(coin_data['data']["acc_trade_value_24H"])
+        fluctate = float(coin_data['data']["fluctate_rate_24H"])
+
         return Response(status=status.HTTP_200_OK,data={
             "version": "2.0",
                 "template": {
                     "outputs": [
                         {
                             "simpleText": {
-                                "text": f'정답'
+                                "text": f'{currency}\n\n가격 : {"{:,}".format(price)}원\n24시간 최고가격 : {"{:,}".format(high)}원'
+                                f'\n24시간 최저가격 : {"{:,}".format(low)}원\n24시간 거래량({currency}) : {volumn}{currency}\n24시간 거래량(원) : {allprice}원'
+                                f'\n변동률 : {fluctate}%'
                             }
                         }
                     ]
