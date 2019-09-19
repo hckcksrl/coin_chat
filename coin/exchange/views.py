@@ -5,7 +5,7 @@ from rest_framework.request import Request
 import json
 import requests
 
-NotFound = Response(status=status.HTTP_404_NOT_FOUND, data={
+NotFound = Response(data={
                 "version": "2.0",
                 "template": {
                     "outputs": [
@@ -151,34 +151,12 @@ class Bithumb(APIView):
             name = korean_to_english(name=name)
 
         if name is False:
-            return Response(data={
-                "version": "2.0",
-                "template": {
-                    "outputs": [
-                        {
-                            "simpleText": {
-                                "text": '해당 코인이 존재하지 않습니다.\n코인 약어를 사용해 보세요\nex) BTC, ETH, XRP'
-                            }
-                        }
-                    ]
-                }
-            })
+            return NotFound
 
         coin_data = self.get_coin(name=name)
 
         if coin_data is False:
-            return Response(data={
-                "version": "2.0",
-                "template": {
-                    "outputs": [
-                        {
-                            "simpleText": {
-                                "text": '해당 코인이 존재하지 않습니다.\n코인 약어를 사용해 보세요\nex) BTC, ETH, XRP'
-                            }
-                        }
-                    ]
-                }
-            })
+            return NotFound
 
         return Response(status=status.HTTP_200_OK,data={
             "version": "2.0",
