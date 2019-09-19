@@ -71,14 +71,15 @@ class CoinOne(APIView):
         high = float(coin_data["high"])
         low =float(coin_data["low"])
         volumn = float(coin_data["volume"])
+
         return Response(status=status.HTTP_200_OK,data={
             "version": "2.0",
                 "template": {
                     "outputs": [
                         {
                             "simpleText": {
-                                "text": f'{currency.upper()}\n\n가격 : {str("{:,}".format(price))} 원\n24시간 최고가격 : {str("{:,}".format(high))} 원'
-                                f'\n24시간 최저가격 : {str("{:,}".format(low))} 원\n24시간 거래량 : {volumn} {currency.upper()}'
+                                "text": f'{currency.upper()}\n\n가격 : {"{:,}".format(price)} 원\n24시간 최고가격 : {"{:,}".format(high)} 원'
+                                f'\n24시간 최저가격 : {"{:,}".format(low)} 원\n24시간 거래량 : {volumn} {currency.upper()}'
                             }
                         }
                     ]
@@ -129,7 +130,13 @@ class UpBit(APIView):
         if coin_data is False:
             return NotFound
 
-        price = coin_data[0]['']
+        price = (coin_data[0]["trade_price"])
+        currency = coin_data[0]["market"].replace("KRW-")
+        high = float(coin_data[0]["high_price"])
+        low = float(coin_data[0]["low_price"])
+        volumn = float(coin_data[0]["acc_trade_volume"])
+        allprice = float(coin_data[0]["acc_trade_price"])
+
 
         return Response(status=status.HTTP_200_OK, data={
             "version": "2.0",
@@ -137,7 +144,8 @@ class UpBit(APIView):
                 "outputs": [
                     {
                         "simpleText": {
-                            "text": f'정답'
+                                "text": f'{currency}\n\n가격 : {"{:,}".format(price)} 원\n24시간 최고가격 : {"{:,}".format(high)} 원'
+                                f'\n24시간 최저가격 : {"{:,}".format(low)} 원\n24시간 거래량 : {volumn} {currency.upper()}\n오늘 거래량 : {allprice}'
                         }
                     }
                 ]
