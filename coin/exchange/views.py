@@ -145,7 +145,7 @@ class UpBit(APIView):
                     {
                         "simpleText": {
                                 "text": f'{currency}\n\n가격 : {"{:,}".format(price)} 원\n24시간 최고가격 : {"{:,}".format(high)} 원'
-                                f'\n24시간 최저가격 : {"{:,}".format(low)} 원\n24시간 거래량 : {volumn} {currency.upper()}\n오늘 거래량 : {allprice}'
+                                f'\n24시간 최저가격 : {"{:,}".format(low)} 원\n24시간 거래량({currency}) : {volumn} {currency}\n24시간 거래량(원) : {allprice} 원'
                         }
                     }
                 ]
