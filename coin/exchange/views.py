@@ -69,7 +69,7 @@ class CoinOne(APIView):
         currency = coin_data["currency"]
         high = float(coin_data["high"])
         low =float(coin_data["low"])
-        volumn = float(coin_data["volumn"])
+        volumn = float(coin_data["volume"])
         return Response(status=status.HTTP_200_OK,data={
             "version": "2.0",
                 "template": {
