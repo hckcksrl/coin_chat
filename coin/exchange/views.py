@@ -45,7 +45,7 @@ class CoinOne(APIView):
     def get_coin(self, name):
         api = f'https://api.coinone.co.kr/ticker?currency={name}'
         data = requests.get(api)
-        if len(data.json()) == 404:
+        if len(data.json()) != 1 or data.status_code == 404:
             return False
         return data.json()
 
@@ -65,6 +65,7 @@ class CoinOne(APIView):
         if coin_data is False:
             return NotFound
 
+
         price = float(coin_data["last"])
         currency = coin_data["currency"]
         high = float(coin_data["high"])
@@ -76,8 +77,8 @@ class CoinOne(APIView):
                     "outputs": [
                         {
                             "simpleText": {
-                                "text": f'{currency}\n\n가격 : {"{:,}".format(price)} 원\n24시간 최고가격 : {"{:,}".format(high)} 원'
-                                f'\n24시간 최저가격 : {"{:,}".format(low)}\n24시간 거래량 : {volumn} {currency}'
+                                "text": f'{currency.upper()}\n\n가격 : {"{:,}".format(price)} 원\n24시간 최고가격 : {"{:,}".format(high)} 원'
+                                f'\n24시간 최저가격 : {"{:,}".format(low)} 원\n24시간 거래량 : {volumn} {currency.upper()}'
                             }
                         }
                     ]
