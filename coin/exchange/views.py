@@ -65,14 +65,20 @@ class CoinOne(APIView):
         if coin_data is False:
             return NotFound
 
+        price = int(coin_data["last"])
+        currency = coin_data["currency"]
+        high = coin_data["high"]
+        low = coin_data["low"]
+        volumn = coin_data["volumn"]
+
         return Response(status=status.HTTP_200_OK,data={
             "version": "2.0",
                 "template": {
                     "outputs": [
                         {
                             "simpleText": {
-                                "text": f'{coin_data["currency"]}\n\n가격 : {"{:,}".format(int(coin_data["last"]))} 원\n24시간 최고가격 : {"{:,}".format(int(coin_data["high"]))} 원'
-                                f'\n24시간 최저가격 : {"{:,}".format(int(coin_data["low"]))}\n24시간 거래량 : {coin_data["volumn"]} {coin_data["currency"]}'
+                                "text": f'{currency}\n\n가격 : {"{:,}".format(price)} 원\n24시간 최고가격 : {"{:,}".format(high)} 원'
+                                f'\n24시간 최저가격 : {"{:,}".format(low)}\n24시간 거래량 : {volumn} {currency}'
                             }
                         }
                     ]
