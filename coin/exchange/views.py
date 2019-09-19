@@ -77,8 +77,8 @@ class CoinOne(APIView):
                     "outputs": [
                         {
                             "simpleText": {
-                                "text": f'{currency.upper()}\n\n가격 : {"{:,}".format(price)} 원\n24시간 최고가격 : {"{:,}".format(high)} 원'
-                                f'\n24시간 최저가격 : {"{:,}".format(low)} 원\n24시간 거래량 : {volumn} {currency.upper()}'
+                                "text": f'{currency.upper()}\n\n가격 : {str("{:,}".format(price))} 원\n24시간 최고가격 : {str("{:,}".format(high))} 원'
+                                f'\n24시간 최저가격 : {str("{:,}".format(low))} 원\n24시간 거래량 : {volumn} {currency.upper()}'
                             }
                         }
                     ]
@@ -128,6 +128,8 @@ class UpBit(APIView):
 
         if coin_data is False:
             return NotFound
+
+        price = coin_data[0]['']
 
         return Response(status=status.HTTP_200_OK, data={
             "version": "2.0",
