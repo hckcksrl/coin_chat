@@ -71,7 +71,8 @@ class CoinOne(APIView):
                     "outputs": [
                         {
                             "simpleText": {
-                                "text": f'정답'
+                                "text": f'{coin_data["currency"]}\n\n가격 : {"{:,}".format(int(coin_data["last"]))} 원\n24시간 최고가격 : {"{:,}".format(int(coin_data["high"]))} 원'
+                                f'\n24시간 최저가격 : {"{:,}".format(int(coin_data["low"]))}\n24시간 거래량 : {coin_data["volumn"]} {coin_data["currency"]}'
                             }
                         }
                     ]
@@ -82,6 +83,9 @@ class CoinOne(APIView):
 class UpBit(APIView):
 
     def get_coin(self, name):
+        name = name.upper()
+        if not name.startswith('KRW-'):
+            name = f'KRW-{name}'
         api = f'https://api.upbit.com/v1/ticker?markets={name}'
         data = requests.get(api)
 
