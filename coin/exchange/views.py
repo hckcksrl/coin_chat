@@ -151,12 +151,34 @@ class Bithumb(APIView):
             name = korean_to_english(name=name)
 
         if name is False:
-            return NotFound
+            return Response(status=status.HTTP_404_NOT_FOUND, data={
+                "version": "2.0",
+                "template": {
+                    "outputs": [
+                        {
+                            "simpleText": {
+                                "text": '해당 코인이 존재하지 않습니다.\n코인 약어를 사용해 보세요\nex) BTC, ETH, XRP'
+                            }
+                        }
+                    ]
+                }
+            })
 
         coin_data = self.get_coin(name=name)
 
         if coin_data is False:
-            return NotFound
+            return Response(status=status.HTTP_404_NOT_FOUND, data={
+                "version": "2.0",
+                "template": {
+                    "outputs": [
+                        {
+                            "simpleText": {
+                                "text": '해당 코인이 존재하지 않습니다.\n코인 약어를 사용해 보세요\nex) BTC, ETH, XRP'
+                            }
+                        }
+                    ]
+                }
+            })
 
         return Response(status=status.HTTP_200_OK,data={
             "version": "2.0",
