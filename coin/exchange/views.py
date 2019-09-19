@@ -131,7 +131,7 @@ class UpBit(APIView):
             return NotFound
 
         price = (coin_data[0]["trade_price"])
-        currency = coin_data[0]["market"].replace("KRW-")
+        currency = coin_data[0]["market"].replace("KRW-","")
         high = float(coin_data[0]["high_price"])
         low = float(coin_data[0]["low_price"])
         volumn = float(coin_data[0]["acc_trade_volume"])
