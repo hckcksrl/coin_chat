@@ -18,7 +18,7 @@ NotFound = Response(status=status.HTTP_404_NOT_FOUND, data={
                 }
             })
 
-with open('/home/ubuntu/kakao-tft/lolchess/kakaobot/config.json', 'r') as f:
+with open('/home/ubuntu/coin_chat/coin/exchange/config.json', 'r') as f:
     config = json.load(f)
 
 
@@ -26,12 +26,12 @@ def ko_or_en(name):
     k_count = 0
     for c in name:
         if ord('가') <= ord(c) <= ord('힣'):
-            k_count+=1
+            k_count += 1
             break
         elif ord('ㄱ') <= ord(c) <= ord('ㅎ'):
-            k_count+=1
+            k_count += 1
             break
-    return False if k_count>1 else True
+    return False if k_count > 0 else True
 
 
 def korean_to_english(name):
