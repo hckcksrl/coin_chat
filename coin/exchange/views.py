@@ -200,3 +200,52 @@ class Bithumb(APIView):
                     ]
                 }
         })
+
+
+class KorBit(APIView):
+
+    def get_coin(self, name):
+        coin_name = f'{name.lower()}_krw'
+        api = f'https://api.korbit.co.kr/v1/ticker/detailed?currency_pair={coin_name}'
+        data = requests.get(api)
+        if data.status_code == 400:
+            return False
+        return data.json()
+
+    def post(self, request: Request):
+
+        data = request.data
+        name = data['action']['params']['coin']
+        check = ko_or_en(name=name)
+        if check is False:
+            name = korean_to_english(name=name)
+
+        if name is False:
+            return NotFound
+
+        coin_data = self.get_coin(name=name)
+
+        if coin_data is False:
+            return NotFound
+
+        price = float(coin_data["last"])
+        currency = name
+        high = float(coin_data["high"])
+        low = float(coin_data["low"])
+        volumn = float(coin_data["volume"])
+        fluctate = float(coin_data["changePercent"])
+
+        return Response(status=status.HTTP_200_OK, data={
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "simpleText": {
+                            "text": f'{currency}\n\n가격 : {"{:,}".format(price)}원\n24시간 최고가격 : {"{:,}".format(high)}원'
+                            f'\n24시간 최저가격 : {"{:,}".format(low)}원\n24시간 거래량({currency}) : {volumn}{currency}'
+                            f'\n변동률 : {fluctate}%'
+                        }
+                    }
+                ]
+            }
+        })
