@@ -13,6 +13,17 @@
 * uwsgi , nginx를 Django와 연동
 * AWS EC2를 사용해 배포
 
+
+### Stack
+
+* Django
+* 각 거래소 Open API
+* Uwsgi
+* Nginx
+* AWS EC2
+* Kakao API
+
+
 # 첨부
 
 ### Github
