@@ -18,9 +18,9 @@
 
 * Django
 * 각 거래소 Open API
-* Uwsgi
-* Nginx
-* AWS EC2
+* Zappa
+* AWS Lambda
+* API Gateway
 * Kakao API
 
 
